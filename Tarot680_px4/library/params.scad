@@ -11,7 +11,7 @@ cut_color = [0.9, 0, 0];
 
 cc3d_hole_width = 30.5;
 cut_view=false;
-debug=true;
+debug=false;
 //viewModule = isfull_view(viewType);
 cut_view_debug=0;
 

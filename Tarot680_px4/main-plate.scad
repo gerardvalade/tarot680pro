@@ -41,7 +41,7 @@ module bottomPlate(viewType=1)
 									translate([0, 0, 0]) cylinder(d=M25_head_dia+3, h=plate_tin, center=false);
 								}
 							}
-							if (isFullView(viewType)) {
+							if (isfull_view(viewType)) {
 								translate([0, 0, 6]) pillar();
 							}
 						}
@@ -51,7 +51,7 @@ module bottomPlate(viewType=1)
 							cylinder(d=M25_inner_dia, h=16, center=false);
 							hexaprismx(ri=5.3/2, h=6);
 						}
-						//if (cutView) color(cut_color) translate([-5, -0, 0]) cube([10,10,9]);
+						//if (cut_view) color(cut_color) translate([-5, -0, 0]) cube([10,10,9]);
 					}
 				}
 			}
@@ -71,25 +71,28 @@ module bottomPlate(viewType=1)
 		translate([0, 0, plate_tin/2]) {
 			difference() {
 				union() {
-					roundCornersCube(157, option_hole_width+6, plate_tin, 3);
-					//roundCornersCube(36, 70, plate_tin, 2);
-					roundCornersCube(60, 95, plate_tin, 2);
-					//roundCornersCube(option_hole_width+6, 157, plate_tin, 5);
-					roundCornersCube(option_hole_width+6, 178, plate_tin, 3);
+					round_corners_cube(157, option_hole_width+6, plate_tin, 3);
+					//round_corners_cube(36, 70, plate_tin, 2);
+					round_corners_cube(60, 95, plate_tin, 2);
+					//round_corners_cube(option_hole_width+6, 157, plate_tin, 5);
+					round_corners_cube(option_hole_width+6, 178, plate_tin, 3);
 				}
 				
-				//roundCornersCube(30,35, plate_tin+0.1, 10);
+				//round_corners_cube(30,35, plate_tin+0.1, 10);
 				cube([22,26,plate_tin+2], center=true);
-				roundCornersCube(31,31, plate_tin+0.1, 10);
+				round_corners_cube(31,31, plate_tin+0.1, 10);
 				for(a=[0, 1]){
-					rotate([0, 0, a*90]) roundCornersCube(16, 37, plate_tin+2, 3);
+					rotate([0, 0, a*90]) round_corners_cube(16, 37, plate_tin+2, 3);
 					ww=6;
 					rotate([0, 0, a*180])  translate([0, 27, 0]) fente(w=7);
 					rotate([0, 0, a*180+90])  translate([0, 26, 0]) fente(l=19);
 					
-					rotate([0, 0, a*180])  translate([55, 0, 0]) roundCornersCube(30,20, plate_tin+2, 3);
-					rotate([0, 0, a*180+90]) translate([57, 0, 0]) roundCornersCube(30,20, plate_tin+2, 3);
-					rotate([0, 0, a*180+90]) translate([80.5, 0, 0]) cylinder(d=7, h=50, center=true);
+					rotate([0, 0, a*180])  translate([55, 0, 0]) round_corners_cube(30,20, plate_tin+2, 3);
+					rotate([0, 0, a*180+90]) translate([57, 0, 0]) round_corners_cube(30,20, plate_tin+2, 3);
+					rotate([0, 0, a*180+90])  hull() {
+						translate([80, 0, 0]) cylinder(d=7, h=50, center=true);
+						translate([82, 0, 0]) cylinder(d=7, h=50, center=true);
+					}
 					
 				}
 			}
@@ -97,14 +100,14 @@ module bottomPlate(viewType=1)
 		}
 		
 	}
-	module drawOptions(drawType=1){
+	module drawOptions(draw_type=1){
 		for (a = [0, 1]) {
 			
-			rotate([0, 0, a*180])   translate([(78.5)/2, 0, 0]) drawOptionSpacer(drawType=drawType, center=false);
-			//rotate([0, 0, a*180+90])   translate([(78.5)/2, 0, 0]) drawOptionSpacer(drawType=drawType, center=false);
-			rotate([0, 0, a*180+90])   translate([50, 0, 0]) drawOptionSpacer(drawType=drawType, center=false);
+			rotate([0, 0, a*180])   translate([(78.5)/2, 0, 0]) draw_option_spacer(draw_type=draw_type, center=false);
+			//rotate([0, 0, a*180+90])   translate([(78.5)/2, 0, 0]) draw_option_spacer(draw_type=draw_type, center=false);
+			rotate([0, 0, a*180+90])   translate([50, 0, 0]) draw_option_spacer(draw_type=draw_type, center=false);
 			
-			//rotate([0, 0, a*180+90])  translate([(78.5/2), 0, 0]) drawOptionSpacer(drawType=drawType, xaxis=[0], center=false);
+			//rotate([0, 0, a*180+90])  translate([(78.5/2), 0, 0]) draw_option_spacer(draw_type=draw_type, xaxis=[0], center=false);
 		}
 	}
 	module powerModuleSpacer(d, h, center)
@@ -129,7 +132,7 @@ module bottomPlate(viewType=1)
 
 				translate([0, 0, 0]) damperEars(DAMPER_EARS_DRAW_BOTTOM);
 
-				drawOptions(drawType=1);
+				drawOptions(draw_type=1);
 
 				powerModuleSpacer(d=5.5, h=6, center=false);
 				
@@ -140,11 +143,11 @@ module bottomPlate(viewType=1)
 		}
 		
 		T680Pro_holes();
-		drawOptions(drawType=0);
+		drawOptions(draw_type=0);
 		powerModuleSpacer(d=M25_inner_dia, h=20, center=true);
 		
 	}
-	if (isFullView(viewType)) {
+	if (isfull_view(viewType)) {
 		T680Pro_holes(1);
 		translate([0, 0, plate_tin+1.8+2]) powerBoard();
 		

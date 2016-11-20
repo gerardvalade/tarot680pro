@@ -100,19 +100,20 @@ module T680Pro_holes(type=0, d=M25_outer_dia, $fn=30)
 	
 }
 
-module drawOptionSpacer(drawType=0, xaxis=[0,1], hole_dia=M25_inner_dia, heigth=10, center=true, $fn=30)
+module draw_option_spacer(draw_type=0, xaxis=[0,1], hole_dia=M25_inner_dia, heigth=10, center=true, $fn=30)
 {
-	hole_dia = drawType == 0 ? hole_dia : 6;
-	heigth = drawType == 0 ? 10 : 8;
-	zaxis = drawType == 0 ? -1 : 0;
+	hole_dia = draw_type == 0 ? hole_dia : 6;
+	heigth = draw_type == 0 ? 10 : 8;
+	zaxis = draw_type == 0 ? -1 : 0;
 	for (x = xaxis) { 
 		for (y = [-1,1]) {
 			xpos = (center) ? (x*2-1) * option_hole_length/2 :  x * option_hole_length;
 			ypos = y * option_hole_width/2;
 			translate([xpos, ypos, zaxis])  rotate([0, 0, 0])  {
-				if (drawType == 0) cylinder(d=hole_dia, h=heigth+2, center=false);
-				if (drawType == 1) cylinder(d=hole_dia, h=heigth, center=false);
-				if (drawType == 2) translate([0, 0, 0]) rotate([0, 0, 0]) screw("M2.5x10");
+				if (draw_type == 0) cylinder(d=hole_dia, h=heigth+2, center=false);
+				if (draw_type == 1) cylinder(d=hole_dia, h=heigth, center=false);
+				if (draw_type == 2) translate([0, 0, 0]) rotate([0, 0, 0]) screw("M2.5x10");
+				if (debug) #cylinder(d=0.2, h=heigth+20, center=false);
 			}
 		}
 	}
@@ -122,7 +123,7 @@ module controller_board($fn=30)
 {
 	difference() {
 		translate([0, 0, 1.24/2]) {
-			color([0.9, 0.5, 0]) roundCornersCube(36.2, 36.2, 1.24, 3);
+			color([0.9, 0.5, 0]) round_corners_cube(36.2, 36.2, 1.24, 3);
 		}
 		for (x = [-1, 1]) { 
 			for (y = [-1, 1]) {
@@ -141,7 +142,7 @@ module controller_board($fn=30)
 module powerBoard($fn=30)
 {
 	controller_board();
-	translate([0, 0, (1.24+4)/2]) roundCornersCube(21.45, 24.33, 4, 3);
+	translate([0, 0, (1.24+4)/2]) round_corners_cube(21.45, 24.33, 4, 3);
 }
 
 

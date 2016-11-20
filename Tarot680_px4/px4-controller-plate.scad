@@ -23,7 +23,7 @@ module PX4_case()
 {
 	color([0.4, 0.3, 0.8]) {
 		translate([0, 0, 17/2]) {
-			roundCornersCube(50, 80, 17, 1);
+			round_corners_cube(50, 80, 17, 1);
 		}
 	}
 }
@@ -43,10 +43,10 @@ module controllerPlate(full_view=0, cut_view=0)
 		translate([0, 0, plate_tin/2]) {
 			difference() {
 				union() {
-					roundCornersCube(plate_width, plate_length, plate_tin, 3);
+					round_corners_cube(plate_width, plate_length, plate_tin, 3);
 					
 				}
-				roundCornersCube(plate_width/2, plate_length/2, plate_tin+5, 5);
+				round_corners_cube(plate_width/2, plate_length/2, plate_tin+5, 5);
 			}
 		}
 	}
@@ -76,4 +76,4 @@ module controllerPlate(full_view=0, cut_view=0)
 	
 }
 
-controllerPlate(1);
+controllerPlate();

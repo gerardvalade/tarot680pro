@@ -8,7 +8,7 @@ Contact: s.vilches.e@gmail.com
 
     ----------------------------------------------------------- 
                  Round Corners Cube (Extruded)                
-      roundCornersCube(x,y,z,r) Where:                        
+      round_corners_cube(x,y,z,r) Where:                        
          - x = Xdir width                                     
          - y = Ydir width                                     
          - z = Height of the cube                             
@@ -19,7 +19,7 @@ Contact: s.vilches.e@gmail.com
  	 ----------------------------------------------------------- 
 */
 // Test it!
-// roundCornersCube(10,5,2,1);
+// round_corners_cube(10,5,2,1);
 
 
 module createMeniscus(h,radius) // This module creates the shape that needs to be substracted from a cube to make its corners rounded.
@@ -32,7 +32,7 @@ difference(){        //This shape is basicly the difference between a quarter of
 }
 
 
-module roundCornersCube(x,y,z,r)  // Now we just substract the shape we have created in the four corners
+module round_corners_cube(x,y,z,r)  // Now we just substract the shape we have created in the four corners
 difference(){
    cube([x,y,z], center=true);
 

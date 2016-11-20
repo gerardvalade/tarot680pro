@@ -14,7 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-include <roundCornersCube.scad>
+include <round_corners_cube.scad>
 include <nutsnbolts/cyl_head_bolt.scad>;
 
 
@@ -44,7 +44,7 @@ module tarot680Pro_board( $fn=30)
 					translate([0, 0, 12])  cylinder(d=d+1, h=7.5, center=false, $fn=6);
 			}
 		}
-		translate([0, -(147+14)/2, 0]) holeScrew(h=26);
+		translate([0, -(147+13.5)/2, 0]) holeScrew(h=26);
 		for (r=[135, 45]) {
 			for (x = [202-18]) { 
 				rotate([0,0,r]) translate([(x/2), 0, 0]) holeScrew(h=14);
@@ -297,7 +297,7 @@ module tarot680Pro_board( $fn=30)
 		}
 		module quater() {
 			for (a=[0, -60]) {
-				rotate([0,0,a]) translate([0, (120)/2, 0]) {
+				rotate([0,0,a]) translate([0, (119)/2, 0]) {
 					halfShape();
 					if (a) mirror([1,0,0]) halfShape();
 				}
@@ -384,7 +384,7 @@ module tarot680Pro_board( $fn=30)
 	}
 	translate([0, 0, -0.5])  {
 		plate(1);
-		translate([0, 0, -24])  plate();
+		//translate([0, 0, -24])  plate();
 	}
 	translate([0, 0, 0])  
 		difference() {

@@ -16,7 +16,7 @@
 
 
 include <nutsnbolts/cyl_head_bolt.scad>
-include <tarot680pro.scad>
+use <tarot680pro.scad>
 use <frsky.scad>
 use <videotx.scad>
 

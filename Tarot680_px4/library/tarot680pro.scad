@@ -172,54 +172,6 @@ module tarot680Pro_board( $fn=30)
 		mirror([1, 0, 0]) halfCanopy();
 	}
 	
-	
-	module allHolesxx(type=0)
-	{
-		
-		module hole(d)
-		{
-			if (type==0) cylinder(d=d, h=10, center=true);
-		}
-		module holeScrew(d)
-		{
-			if (type==0) cylinder(d=d, h=10, center=true);
-			if (type==1) translate([0, 0, 0]) screw("M2.5x25");
-		}
-
-		// holes
-		for (x = [-1,1]) { 
-			for (y = [-1,1]) { 
-				translate([(x*42.5/2), y*(73.5/2), 0]) hole(d=M25_outer_dia);
-
-				translate([(x*46/2), y*(146/2), 0]) hole(d=M25_outer_dia);
-				translate([(x*74/2), y*(146/2), 0]) hole(d=M25_outer_dia);
-
-				translate([(x*61/2), y*(178/2), 0]) hole(d=M25_outer_dia);
-				translate([(x*77/2), y*(168/2), 0]) hole(d=M25_outer_dia);
-			}
-		}
-		
-		for (r=[0, 180]) {
-			// inner, middle, external holes
-			for (x = [71.5, 148]) { 
-				for (y = [-1,1]) { 
-					rotate([0,0,r]) translate([(x/2), y*(22/2), 0]) hole(d=M25_outer_dia);
-				}
-			}
-			for (x = [159]) { 
-				for (y = [-1,1]) { 
-					rotate([0,0,r]) translate([(x/2), y*(41/2), 0]) hole(d=M25_outer_dia);
-					rotate([0,0,r]) translate([(x/2), y*(59.5/2), 0]) hole(d=M25_outer_dia);
-				}
-			}
-			for (x = [185]) { 
-				for (y = [-1,1]) { 
-					rotate([0,0,r]) translate([(x/2), y*(22/2), 0]) holeScrew(d=M25_outer_dia);
-				}
-			}
-		}
-		
-	}
 
 	module allHoles(type=0)
 	{

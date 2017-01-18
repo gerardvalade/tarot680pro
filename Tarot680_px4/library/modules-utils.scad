@@ -148,7 +148,7 @@ module powerBoard($fn=30)
 
 
 
-module damperEars(type, ear_lengthx=4, damper_dia=10.5, damper_angle=40, plate_color, cur_view=0, $fn=30)
+module damperEars(type, damper_dia=10.5, damper_angle=40, plate_color, cur_view=0, $fn=30)
 {
 
 	function is_damper_draw(n) = n[0]==0; 

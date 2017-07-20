@@ -76,4 +76,4 @@ module controllerPlate(full_view=0, cut_view=0)
 	
 }
 
-controllerPlate();
+controllerPlate(full_view=true);

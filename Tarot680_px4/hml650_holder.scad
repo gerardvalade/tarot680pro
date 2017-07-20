@@ -27,7 +27,7 @@ M3_inner_dia=3;
 M3_head_dia=5.4+0.8;
 
 // SMA Thread
-M6_outer_dia=6.5;
+M6_outer_dia=6.6;
 
 tube_dia=16.1;
 plate_width=35;
@@ -207,6 +207,55 @@ module simple_antenna_bracket(full_view)
 	bracket_width = 16;
 	difference() {
 		union() {
+			//translate([-8, -plate_width/2, 0]) cube([3, plate_width, 18]);
+			translate([-6.5, 0, 9.5]) rotate([0, 90, 0])  round_corners_cube(19, plate_width+15, 3, 3);
+			hull()
+			{
+				translate([0, 	bracket_length/2, 0]) cylinder(d=bracket_width, h=6, center=false, $fn=50);
+				translate([0, 	-bracket_length/2, 0]) cylinder(d=bracket_width, h=6, center=false, $fn=50);
+			}
+		}
+		
+		translate([0, 0, 3]) hull()
+		{
+			hh =1;
+			translate([0, 	bracket_length/2, 0]) cylinder(d=12.5, h=10, center=false, $fn=50);
+			translate([0, 	-bracket_length/2, 0]) cylinder(d=12.5, h=10, center=false, $fn=50);
+		}
+		for (y = [-1, 1]) { 
+			translate([0, y*(servo_width/2), 0]) {
+				cylinder(d=M3_outer_dia, h=20, center=true, $fn=50);
+			}
+			translate([-5, y*((plate_width/2)-1), 11]) {  
+				rotate([0,90,0]) cylinder(d=M6_outer_dia, h=10, center=true, $fn=50);
+			}
+			
+			translate([0, y*((plate_width/2)+9), 0]) {  
+				rotate([0, 0, 0]) cylinder(d=M6_outer_dia, h=10, center=true, $fn=50);
+			}
+		}
+	}
+	translate([-5, 0, 3]) rotate([90,0,0])
+				linear_extrude(height = 1.8, center = true, convexity = 10, twist = 0)
+					polygon( points=[[0,0],[9,0],[0,15]] ); 
+	if (full_view) {
+		for (y = [-1, 1]) { 
+			translate([0, y*(servo_width/2), 3]) {
+				screw("M3x10");
+			}
+		}
+	}
+}
+
+/**
+ * antenna bracket
+ */
+module simple_antenna_bracket_old(full_view)
+{
+	bracket_length = 55;
+	bracket_width = 16;
+	difference() {
+		union() {
 			translate([-8, -plate_width/2, 0]) cube([3, plate_width, 18]);
 			translate([-5, 0, 3]) rotate([90,0,0])
 				linear_extrude(height = 1.8, center = true, convexity = 10, twist = 0)
@@ -220,7 +269,7 @@ module simple_antenna_bracket(full_view)
 		
 		for (y = [-1, 1]) { 
 			translate([0, y*(servo_width/2), 0]) {
-				#cylinder(d=M3_outer_dia, h=20, center=true, $fn=50);
+				cylinder(d=M3_outer_dia, h=20, center=true, $fn=50);
 			}
 			translate([-5, y*((plate_width/2)-9), 11]) {  
 				rotate([0,90,0]) cylinder(d=M6_outer_dia, h=10, center=true, $fn=50);
@@ -238,6 +287,126 @@ module simple_antenna_bracket(full_view)
 			}
 		}
 	}
+}
+
+module simple_antenna_bracket_gps(full_view)
+{
+	bracket_length = 55;
+	bracket_width = 16;
+	
+	module Vsupport()
+	{
+		difference() { 
+			union() {
+				translate([0, 0, 4]) cube([8, 21, 8], center=true);
+				for (y = [-1, 1]) {
+					translate([0, y*(12/2), 8])  rotate([-y*45, 0, 0]) 
+					{
+						translate([0, 0, 5]) cylinder(d=8, h=20, center=true, $fn=20);
+					}
+				} 
+			}
+			//translate([0, 0, 3]) cube([18, 8, 4], center=true);
+		}
+	}
+	module Vsupport_hole()
+	{
+			for (y = [-1, 1]) {
+				translate([0, y*(12/2), 8])  rotate([-y*45, 0, 0]) 
+				{
+					translate([0, 0, 11]) cylinder(d=3.8, h=30, center=true, $fn=20);
+					translate([0, 0, 5]) cylinder(d=2, h=30, center=true, $fn=20);
+				}
+			} 
+			translate([0, 0, 2]) cube([9, 8, 6], center=true);
+	}	
+	difference() {
+		union() {
+			//translate([-8, -plate_width/2, 0]) cube([3, plate_width, 18]);
+			translate([-6.5, 0, 9.5]) rotate([0, 90, 0])  round_corners_cube(19, plate_width+20, 3, 3);
+			/*translate([-5, 0, 3]) rotate([90,0,0])
+				linear_extrude(height = 1.8, center = true, convexity = 10, twist = 0)
+					polygon( points=[[0,0],[9,0],[0,15]] );*/
+
+			hull()
+			{
+				translate([0, 	bracket_length/2, 0]) cylinder(d=bracket_width, h=3, center=false, $fn=50);
+				translate([0, 	-bracket_length/2, 0]) cylinder(d=bracket_width, h=3, center=false, $fn=50);
+			}
+			translate([7, 0, 0])  Vsupport();
+			translate([-5, 0, 0]) {
+				cylinder(d=8, h=40, center=false); 
+				translate([0, 0, 30])  
+				hull()
+				{
+					translate([0, 	0, -0.1])cylinder(d=8, h=0.1, center=false, $fn=50);
+					translate([0, 	0, 10]) cylinder(d=14, h=0.1, center=false, $fn=50);
+				}
+				
+			}
+		}
+		translate([-5, 0, -3]) cylinder(d=3, h=55, center=false);
+		
+		for (y = [-1, 1]) { 
+			translate([0, y*(servo_width/2), 0]) {
+				cylinder(d=M3_outer_dia, h=20, center=true, $fn=50);
+			}
+			
+			translate([0, y*((plate_width/2)+9), 0]) {  
+				rotate([0, 0, 0]) cylinder(d=M6_outer_dia, h=10, center=true, $fn=50);
+			}
+		}
+		translate([-5, -20, 10]) {  
+			rotate([0,90,0]) cylinder(d=9, h=40, center=true, $fn=50);
+			translate([-2-1.5, 0, 0]) rotate([0,90,0]) cylinder(d=13, h=4, center=true, $fn=50);
+		}
+		
+		translate([7, 0, 0])  Vsupport_hole();
+	}
+	if (full_view) {
+		for (y = [-1, 1]) { 
+			translate([0, y*(servo_width/2), 3]) {
+				screw("M3x10");
+			}
+		}
+	}
+}
+
+module gps_bracket(full_view)
+{
+	tin = 3;
+	module v()
+	{
+		difference() {
+		union() {
+			 translate([0, 0, 0]) rotate([0,0,0]) cylinder(d=60, h=13+tin, center=false); 
+		}
+		translate([0, 0, tin]) rotate([0,0,0]) cylinder(d=55, h=10, center=false); 
+		translate([0, 0, 2]) rotate([0,0,0]) cylinder(d=40, h=5, center=false); 
+		translate([0, 0, 9+tin])  
+			hull()
+			{
+				translate([0, 	0, -0.1])cylinder(d=55, h=0.1, center=false, $fn=50);
+				translate([0, 	0, 4]) cylinder(d=53, h=0.1, center=false, $fn=50);
+			}
+		for (r = [0, 60, 120]) {
+			translate([0, 0, 8+tin]) rotate([0,0,r]) cube([60, 15, 16], center=true);
+			rotate([0,0,r]) translate([14.5, 0, -1]) cylinder(d=10, h=10);
+			rotate([0,0,r-180]) translate([14.5, 0, -1]) cylinder(d=10, h=10);
+		}
+	}		
+		
+	}
+	difference() {
+		union() {
+			v();	
+		 	translate([0, 0, 0])  cylinder(d=17.5, h=1.8+tin, center=false);
+		}
+		translate([0, 0, -0.1])  cylinder(d=3, h=14, center=false);
+		translate([0, 0, 2])  cylinder(d=5.5, h=14, center=false);
+		
+	}
+		
 }
 
 module showScrew(xtra=0)
@@ -317,6 +486,8 @@ module all_modules()
 			translate([60, 0, 0]) rotate([0, 0, 0])  bottom_plate(3);
 			translate([60, 50, 0]) rotate([0, 0, 0])  top_plate_GPS_bracket(3);
 	
+translate([-50, 80, 0]) simple_antenna_bracket_gps();
+translate([-60, 0, 0]) gps_bracket();
 }
 module antenna_bracket()
 {
@@ -339,5 +510,6 @@ module antenna_bracket()
 
 translate([0, 0, 0]) all_modules();
 //translate([150, 0, 0]) antenna_bracket();
-//simple_antenna_bracket();
- 
+//translate([0, 100, 0]) simple_antenna_bracket_gps();
+//translate([0, 0, 0])  simple_antenna_bracket();
+//translate([-50, 100, 0]) gps_bracket();

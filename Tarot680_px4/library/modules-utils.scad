@@ -100,10 +100,10 @@ module T680Pro_holes(type=0, d=M25_outer_dia, $fn=30)
 	
 }
 
-module draw_option_spacer(draw_type=0, xaxis=[0,1], hole_dia=M25_inner_dia, heigth=10, center=true, $fn=30)
+module draw_option_spacer(draw_type=0, xaxis=[0,1], hole_dia=M25_inner_dia, heigth=0, center=true, $fn=30)
 {
 	hole_dia = draw_type == 0 ? hole_dia : 6;
-	heigth = draw_type == 0 ? 10 : 8;
+	heigth = draw_type == 0 ? 10 : 8 + heigth;
 	zaxis = draw_type == 0 ? -1 : 0;
 	for (x = xaxis) { 
 		for (y = [-1,1]) {
@@ -114,6 +114,20 @@ module draw_option_spacer(draw_type=0, xaxis=[0,1], hole_dia=M25_inner_dia, heig
 				if (draw_type == 1) cylinder(d=hole_dia, h=heigth, center=false);
 				if (draw_type == 2) translate([0, 0, 0]) rotate([0, 0, 0]) screw("M2.5x10");
 				if (debug) #cylinder(d=0.2, h=heigth+20, center=false);
+			}
+		}
+	}
+}
+
+module draw_spacer(xaxis=[0,1], d=M25_inner_dia, h=0, $fn=30)
+{
+	zaxis = 0;
+	for (x = xaxis) { 
+		for (y = [-1,1]) {
+			xpos = (center) ? (x*2-1) * option_hole_length/2 :  x * option_hole_length;
+			ypos = y * option_hole_width/2;
+			translate([xpos, ypos, zaxis]) {
+				cylinder(d=d, h=h, center=false);
 			}
 		}
 	}

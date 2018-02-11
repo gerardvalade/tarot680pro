@@ -416,11 +416,11 @@ module tarot680Modules(viewType=1, cutView=0)
 		damper_heigth= is_damper_bottom(type) ? 7.1 : 0;
 		ear_length = is_damper_bottom(type) ? 7.9 : 6;
 		
-		module ear(x, tz=0, cte=0, ear_length, tin=plate_tin)
+		module ear(x, tz=0, cte=0, ear_length, thick=plate_tin)
 		{
 			 hull() {
-				translate([x*ear_length, 0, tz]) cylinder(d=13-cte, h=tin, center=true);
-				translate([0, 0, tz]) cylinder(d=14-cte, h=tin, center=true);
+				translate([x*ear_length, 0, tz]) cylinder(d=13-cte, h=thick, center=true);
+				translate([0, 0, tz]) cylinder(d=14-cte, h=thick, center=true);
 			}
 		}
 		

@@ -314,7 +314,20 @@ module tarot680Pro_board( $fn=30)
 		half();
 		mirror([0,1,0]) half();
 	}
-	
+
+	module tube()
+	{
+		module half_tube()
+		{
+			translate([70, 0, -12]) rotate([0,90, 0]) difference()
+			{
+				cylinder(d = 16, h=150, $fn=30 , center=false);
+				translate([0, 0, -1]) cylinder(d = 14, h=200, $fn=30 , center=false);
+			}
+			
+		}		
+		half_tube();
+	}	
 	module plate(viewAll=0) {
 		difference() {
 			rotate([0, 0, 15]) color([0.3, 0.3, 0.3])  cylinder(r = 100, h=1.9, $fn=12, center=true);
@@ -326,11 +339,8 @@ module tarot680Pro_board( $fn=30)
 		if (viewAll) {
 			allHoles(1);
 			canopyHolder(1);
-			translate([70, 0, -12]) rotate([0,90,0]) difference()
-			{
-				cylinder(d = 16, h=80, $fn=30 , center=true);
-				cylinder(d = 14, h=200, $fn=30 , center=true);
-			}
+			for(rot=[0:60:360])
+				rotate([0, 0, rot])tube();
 		}
 		
 	}

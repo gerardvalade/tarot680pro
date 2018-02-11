@@ -116,7 +116,7 @@ module led_holder()
 		difference()
 		{
 			translate([0, 0, plate_tin/2]) cube([75, 5.5, plate_tin], center=true);
-			translate([0, x*(-1+2.5), 11/2+2]) cube([54.8, 3.5, 12], center=true);
+			#translate([0, x*(-1+2.5), 11/2+2]) cube([54.8, 3.5, 12], center=true);
 			for(xx = [-1, 1]) {
 				translate([xx*25.4, 0, 7]) rotate([90,0,0]) hull()
 				{

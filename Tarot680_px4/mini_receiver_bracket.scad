@@ -104,9 +104,18 @@ module mini_receiver_bracket(full_view=false, frskyWidth=23.5, $fn=30)
 	
 }
 
+module mini_receiver_view()
+{
+	translate([0, 0, 7]) rotate([0, 0, 90]) {
+		 power_bracket();	
+		translate([0, 0, 10]) fixing();
+	}	
+	translate([-34, 0, 0])  mini_receiver_bracket();
 
+}
 	
 translate([0, 0, 0]) power_bracket();	
 translate([0, 50, 0])  mini_receiver_bracket();
 
 translate([0, -50, 0]) fixing();
+//translate([0, 100, 0]) mini_receiver_view();

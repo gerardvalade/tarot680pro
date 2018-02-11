@@ -177,11 +177,11 @@ module damperEars(type, damper_dia=10.5, damper_angle=40, plate_color, cur_view=
 	damper_heigth= is_damper_bottom(type) ? 4.5 : 0;
 	ear_length = is_damper_bottom(type) ? 7.9 : 6;
 	
-	module ear(x, tz=0, cte=0, ear_length, tin=plate_tin)
+	module ear(x, tz=0, cte=0, ear_length, thick=plate_tin)
 	{
 		 hull() {
-			translate([x*ear_length, 0, tz]) cylinder(d=13-cte, h=tin, center=true);
-			translate([0, 0, tz]) cylinder(d=14-cte, h=tin, center=true);
+			translate([x*ear_length, 0, tz]) cylinder(d=13-cte, h=thick, center=true);
+			translate([0, 0, tz]) cylinder(d=14-cte, h=thick, center=true);
 		}
 	}
 	

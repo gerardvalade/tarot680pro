@@ -374,23 +374,23 @@ module simple_antenna_bracket_gps(full_view)
 
 module gps_bracket(full_view)
 {
-	tin = 3;
+	thick = 3;
 	module v()
 	{
 		difference() {
 		union() {
-			 translate([0, 0, 0]) rotate([0,0,0]) cylinder(d=60, h=13+tin, center=false); 
+			 translate([0, 0, 0]) rotate([0,0,0]) cylinder(d=60, h=13+thick, center=false); 
 		}
-		translate([0, 0, tin]) rotate([0,0,0]) cylinder(d=55, h=10, center=false); 
+		translate([0, 0, thick]) rotate([0,0,0]) cylinder(d=55, h=10, center=false); 
 		translate([0, 0, 2]) rotate([0,0,0]) cylinder(d=40, h=5, center=false); 
-		translate([0, 0, 9+tin])  
+		translate([0, 0, 9+thick])  
 			hull()
 			{
 				translate([0, 	0, -0.1])cylinder(d=55, h=0.1, center=false, $fn=50);
 				translate([0, 	0, 4]) cylinder(d=53, h=0.1, center=false, $fn=50);
 			}
 		for (r = [0, 60, 120]) {
-			translate([0, 0, 8+tin]) rotate([0,0,r]) cube([60, 15, 16], center=true);
+			translate([0, 0, 8+thick]) rotate([0,0,r]) cube([60, 15, 16], center=true);
 			rotate([0,0,r]) translate([14.5, 0, -1]) cylinder(d=10, h=10);
 			rotate([0,0,r-180]) translate([14.5, 0, -1]) cylinder(d=10, h=10);
 		}
@@ -400,7 +400,7 @@ module gps_bracket(full_view)
 	difference() {
 		union() {
 			v();	
-		 	translate([0, 0, 0])  cylinder(d=17.5, h=1.8+tin, center=false);
+		 	translate([0, 0, 0])  cylinder(d=17.5, h=1.8+thick, center=false);
 		}
 		translate([0, 0, -0.1])  cylinder(d=3, h=14, center=false);
 		translate([0, 0, 2])  cylinder(d=5.5, h=14, center=false);
@@ -489,6 +489,17 @@ module all_modules()
 translate([-50, 80, 0]) simple_antenna_bracket_gps();
 translate([-60, 0, 0]) gps_bracket();
 }
+
+module gps_bracket_view()
+{
+	translate([0, 0, 10]) {
+		simple_antenna_bracket_gps();
+		translate([-5, 0, 40]) gps_bracket();
+	}
+	translate([0, 0, plate_tin-0.5]) rotate([0, 180, 180])  top_plate(1);
+	translate([0, 0, -plate_tin+0.5]) rotate([0, 0, 0])  bottom_plate(1);
+	
+}
 module antenna_bracket()
 {
 			translate([0, 0, plate_tin*2]) rotate([0, 180, 180])  top_plate(1);
@@ -509,6 +520,9 @@ module antenna_bracket()
 }
 
 translate([0, 0, 0]) all_modules();
+
+translate([-150, 00, 0]) gps_bracket_view();
+
 //translate([150, 0, 0]) antenna_bracket();
 //translate([0, 100, 0]) simple_antenna_bracket_gps();
 //translate([0, 0, 0])  simple_antenna_bracket();

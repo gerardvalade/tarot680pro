@@ -26,6 +26,8 @@ use <cable_holder.scad>
 use <video_bracket.scad>
 use <pcb_holder.scad>
 use <frskyD4R_bracket.scad>
+use <mini_receiver_bracket.scad>
+use <hml650_holder.scad>
 
 full_view=true;
  
@@ -41,4 +43,8 @@ translate([0, 0, pillar_heigth+6]) cable_holder();
 translate([54.5, 0, 8]) rotate([0, 0, 90]) video_bracket2(full_view);
 //translate([54.5, 0, 8]) antenna_backet();
 translate([0, -65.3, 8]) rotate([0, 0, 0]) pcb_holder(full_view);
-translate([-54.5, 0, plate_tin])  frskyD4R_bracket(full_view);
+//translate([-54.5, 0, plate_tin])  frskyD4R_bracket(full_view);
+
+translate([-54.5, 0, 0]) mini_receiver_view();
+
+translate([-125, 0, -12]) gps_bracket_view();
